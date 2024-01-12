@@ -2,33 +2,31 @@ package comment;
 
 import base.BaseEntity;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import post.PostEntity;
+import user.UserEntity;
 
 @Getter
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CommentEntity extends BaseEntity {
 
     @Id
     @GeneratedValue
     private Long comment_id;
 
-    //이거 자료형이 UserEntity이어야하지 않나..?
-    @Column(nullable = false)
-    private String create_id;
-
     @Column(nullable = false)
     private String comment_content;
 
     @Builder
-    public void Comment(Long comment_id, String create_id, String post_content){
-        this.comment_id=comment_id;
-        this.create_id=create_id;
+    public CommentEntity(String post_content){
         this.comment_content=post_content;
     }
 
@@ -36,7 +34,15 @@ public class CommentEntity extends BaseEntity {
         this.comment_content=comment_content;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
     private PostEntity postEntity;
+
+    //지금이게 다대일 단방향 연결이 돼버렸다..
+    //유저가 삭제->댓글도 삭제돼야하는데, 영속성 전이속성을 넣어야되는데, manytoone에 못넣어. 어떡하지?
+    @ManyToOne(fetch = FetchType.LAZY)
+    //이렇게하자!(영속성 전이)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "user_id")
+    private UserEntity userEntity;
 }
