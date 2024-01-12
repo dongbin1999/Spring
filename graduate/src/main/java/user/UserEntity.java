@@ -2,9 +2,14 @@ package user;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import team.TeamEntity;
+import post.PostEntity;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Getter
 @Entity
@@ -22,7 +27,13 @@ public class UserEntity {
     @Column(name = "user_email", nullable = false)
     private String user_email;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "team_id")
-    private TeamEntity teamEntity;
+    @Builder
+    public void User(Long user_id, String userName, String user_email){
+        this.user_id=user_id;
+        this.userName=userName;
+        this.user_email=user_email;
+    }
+
+    @OneToMany(mappedBy = "UserEntity", cascade = CascadeType.PERSIST)
+    private List<PostEntity> users = new ArrayList<>();
 }
