@@ -32,12 +32,14 @@ public class CommentEntity extends BaseEntity {
         this.userEntity=userEntity;
     }
 
-    public static CommentEntity comment(String comment_content, PostEntity postEntity, UserEntity userEntity){
-        return CommentEntity.builder().comment_content(comment_content)
-                .postEntity(postEntity).userEntity(userEntity).build();
+    public static CommentEntity toCommentEntity(String comment_content, PostEntity postEntity, UserEntity userEntity){
+        return CommentEntity.builder()
+                .comment_content(comment_content)
+                .postEntity(postEntity)
+                .userEntity(userEntity).build();
     }
 
-    public void update(String comment_content){
+    public void updateComment(String comment_content){
         this.comment_content=comment_content;
     }
 

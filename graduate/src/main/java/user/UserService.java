@@ -24,18 +24,10 @@ public class UserService {
         return userEntity.getUser_id();
     }
 
-    //그리고 orElseThrow 대신 ifPresent써도 되나?
+    //그리고 orElseThrow 대신 ifPresent써도 되나? -> if를 써야 맞다.
     private void validateDuplicateLoginId(UserEntity userEntity){
-        userRepository.findByLogin_id(userEntity.getLogin_id()).orElseThrow(() ->
-                new IllegalStateException("이미 존재하는 아이디입니다."));
-    }
-
-    //얘는 Test에서 써야되니까 public인가?
-    public List<UserEntity> findUsers(){
-        return userRepository.findAll();
-    }
-
-    public Optional<UserEntity> findById(Long user_id){
-        return userRepository.findById(user_id);
+        userRepository.findByLogin_id(userEntity.getLogin_id()).ifPresent(a
+                -> {throw new IllegalStateException("이미 존재하는 아이디입니다.");
+        });
     }
 }
