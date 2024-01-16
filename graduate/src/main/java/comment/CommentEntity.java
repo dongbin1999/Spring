@@ -26,8 +26,15 @@ public class CommentEntity extends BaseEntity {
     private String comment_content;
 
     @Builder
-    public CommentEntity(String post_content){
-        this.comment_content=post_content;
+    public CommentEntity(String comment_content, PostEntity postEntity, UserEntity userEntity){
+        this.comment_content=comment_content;
+        this.postEntity=postEntity;
+        this.userEntity=userEntity;
+    }
+
+    public static CommentEntity comment(String comment_content, PostEntity postEntity, UserEntity userEntity){
+        return CommentEntity.builder().comment_content(comment_content)
+                .postEntity(postEntity).userEntity(userEntity).build();
     }
 
     public void update(String comment_content){

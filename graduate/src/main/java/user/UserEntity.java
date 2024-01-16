@@ -28,12 +28,20 @@ public class UserEntity {
     @Column(name = "user_email", nullable = false)
     private String user_email;
 
+    @Column(name = "login_id", nullable = false)
+    private String login_id;
+
+    @Column(name = "password", nullable = false)
+    private String password;
+
     @Builder
     //생성자는 클래스이름이랑 똑같이..
     //ID속성은 자동으로 부여되는거라서 우리가 임의로 세팅하면 안된다.
-    public UserEntity(String userName, String user_email){
+    public UserEntity(String userName, String user_email, String login_id, String password){
         this.user_name=userName;
         this.user_email=user_email;
+        this.login_id=login_id;
+        this.password=password;
     }
 
     //영속성 전이는 OneToMany에서밖에 안되는데, 일대다 단방향은 별로 안좋아.. 양방향이면 ok. 수동으로 전이하는 방법도 생각해보자.
