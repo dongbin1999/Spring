@@ -1,12 +1,14 @@
-package comment;
+package study.graduate.appllication.comment;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import post.PostEntity;
-import post.PostRepository;
-import user.UserEntity;
-import user.UserRepository;
+import study.graduate.domain.comment.CommentEntity;
+import study.graduate.domain.comment.CommentRepository;
+import study.graduate.domain.post.PostEntity;
+import study.graduate.domain.post.PostRepository;
+import study.graduate.domain.user.UserEntity;
+import study.graduate.domain.user.UserRepository;
 
 @Service
 @Transactional(readOnly = true)

@@ -1,13 +1,12 @@
-package post;
+package study.graduate.appllication.post;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import user.UserEntity;
-import user.UserRepository;
-
-import java.util.List;
-import java.util.Optional;
+import study.graduate.domain.post.PostEntity;
+import study.graduate.domain.post.PostRepository;
+import study.graduate.domain.user.UserEntity;
+import study.graduate.domain.user.UserRepository;
 
 @Service
 @Transactional(readOnly = true)

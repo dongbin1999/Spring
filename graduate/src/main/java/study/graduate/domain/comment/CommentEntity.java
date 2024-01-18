@@ -1,6 +1,5 @@
-package comment;
+package study.graduate.domain.comment;
 
-import base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -9,8 +8,9 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import post.PostEntity;
-import user.UserEntity;
+import study.graduate.domain.BaseEntity;
+import study.graduate.domain.post.PostEntity;
+import study.graduate.domain.user.UserEntity;
 
 @Getter
 @Entity

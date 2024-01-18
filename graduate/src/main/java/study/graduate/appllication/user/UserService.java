@@ -1,8 +1,10 @@
-package user;
+package study.graduate.appllication.user;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import study.graduate.domain.user.UserEntity;
+import study.graduate.domain.user.UserRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,5 +31,25 @@ public class UserService {
         userRepository.findByLogin_id(userEntity.getLogin_id()).ifPresent(a
                 -> {throw new IllegalStateException("이미 존재하는 아이디입니다.");
         });
+    }
+
+    /**
+     * presentation layer와 domain layer 간의 의존성을 끊기 위해 필요하다.
+     * 이게없으면 controller가 userRepository를 알아야되니까...
+     */
+    public List<UserEntity> findUsers(){
+        return userRepository.findAll();
+    }
+
+    public Optional<UserEntity> findById(Long user_id){
+        return userRepository.findById(user_id);
+    }
+
+    public void deleteUser(Long user_id){
+        userRepository.deleteById(user_id);
+    }
+
+    public void updateUser(UserEntity userEntity){
+        userRepository.
     }
 }
