@@ -1,4 +1,4 @@
-package study.graduate.domain;
+package base;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

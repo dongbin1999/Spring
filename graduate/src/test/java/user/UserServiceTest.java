@@ -3,8 +3,6 @@ package user;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-import study.graduate.appllication.user.UserService;
-import study.graduate.domain.user.UserEntity;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;

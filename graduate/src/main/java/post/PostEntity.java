@@ -1,14 +1,14 @@
-package study.graduate.domain.post;
+package post;
 
+import base.BaseEntity;
+import comment.CommentEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import study.graduate.domain.BaseEntity;
-import study.graduate.domain.user.UserEntity;
-import study.graduate.domain.comment.CommentEntity;
+import user.UserEntity;
 
 import java.util.List;
 

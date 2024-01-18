@@ -1,11 +1,11 @@
-package study.graduate.domain.user;
+package user;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import study.graduate.domain.post.PostEntity;
+import post.PostEntity;
 
 import java.util.List;
 
