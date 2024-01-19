@@ -17,18 +17,18 @@ public class PostService {
     private final UserRepository userRepository;
 
     @Transactional
-    public Long addPost(String title, String content, Long user_id){
-        UserEntity userEntity = userRepository.findById(user_id).orElseThrow();
+    public Long addPost(String title, String content, Long userId){
+        UserEntity userEntity = userRepository.findById(userId).orElseThrow();
 
         PostEntity postEntity = PostEntity.toPostEntity(title, content, userEntity);
         postRepository.save(postEntity);
-        return postEntity.getPost_id();
+        return postEntity.getPostId();
     }
 
     @Transactional
-    public void updatePostEntity(Long post_id, String post_title, String post_content){
-        PostEntity postEntity = postRepository.findById(post_id).orElseThrow();
-        postEntity.updatePost(post_title,post_content);
+    public void updatePostEntity(Long postId, String postTitle, String postContent){
+        PostEntity postEntity = postRepository.findById(postId).orElseThrow();
+        postEntity.updatePost(postTitle,postContent);
         postRepository.save(postEntity);
     }
 }

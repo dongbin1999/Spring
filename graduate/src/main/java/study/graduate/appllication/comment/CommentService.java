@@ -20,19 +20,19 @@ public class CommentService {
     private final UserRepository userRepository;
 
     @Transactional
-    public Long addComment(String comment_content, Long user_id, Long post_id){
-        PostEntity postEntity = postRepository.findById(post_id).orElseThrow();
-        UserEntity userEntity = userRepository.findById(user_id).orElseThrow();
+    public Long addComment(String commentContent, Long userId, Long postId){
+        PostEntity postEntity = postRepository.findById(postId).orElseThrow();
+        UserEntity userEntity = userRepository.findById(userId).orElseThrow();
 
-        CommentEntity commentEntity = CommentEntity.toCommentEntity(comment_content,postEntity,userEntity);
+        CommentEntity commentEntity = CommentEntity.toCommentEntity(commentContent,postEntity,userEntity);
         commentRepository.save(commentEntity);
-        return commentEntity.getComment_id();
+        return commentEntity.getCommentId();
     }
 
     @Transactional
-    public void updateCommentEntity(Long comment_id, String comment_content){
-        CommentEntity commentEntity = commentRepository.findById(comment_id).orElseThrow();
-        commentEntity.updateComment(comment_content);
+    public void updateCommentEntity(Long commentId, String commentContent){
+        CommentEntity commentEntity = commentRepository.findById(commentId).orElseThrow();
+        commentEntity.updateComment(commentContent);
         commentRepository.save(commentEntity);
     }
 }

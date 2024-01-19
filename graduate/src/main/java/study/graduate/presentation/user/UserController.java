@@ -29,8 +29,15 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/{userId}")
-    public ResponseEntity<HttpStatus> updateUser(UserEntity userEntity, Long userId){
-        userService
+    @PostMapping("")
+    public ResponseEntity<?> joinUser(UserEntity userEntity){
+        userService.join(userEntity);
+        return ResponseEntity.ok().build();
+    }
+
+    @PatchMapping("/{userId}")
+    public ResponseEntity<?> updateUser(UserEntity userEntity){
+        userService.join(userEntity);
+        return ResponseEntity.ok().build();
     }
 }

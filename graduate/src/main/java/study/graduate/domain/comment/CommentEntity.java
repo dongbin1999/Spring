@@ -20,31 +20,31 @@ public class CommentEntity extends BaseEntity {
 
     @Id
     @GeneratedValue
-    private Long comment_id;
+    private Long commentId;
 
     @Column(nullable = false)
-    private String comment_content;
+    private String commentContent;
 
     @Builder
-    public CommentEntity(String comment_content, PostEntity postEntity, UserEntity userEntity){
-        this.comment_content=comment_content;
+    public CommentEntity(String commentContent, PostEntity postEntity, UserEntity userEntity){
+        this.commentContent=commentContent;
         this.postEntity=postEntity;
         this.userEntity=userEntity;
     }
 
-    public static CommentEntity toCommentEntity(String comment_content, PostEntity postEntity, UserEntity userEntity){
+    public static CommentEntity toCommentEntity(String commentContent, PostEntity postEntity, UserEntity userEntity){
         return CommentEntity.builder()
-                .comment_content(comment_content)
+                .commentContent(commentContent)
                 .postEntity(postEntity)
                 .userEntity(userEntity).build();
     }
 
     public void updateComment(String comment_content){
-        this.comment_content=comment_content;
+        this.commentContent=commentContent;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id")
+    @JoinColumn(name = "postId")
     private PostEntity postEntity;
 
     //지금이게 다대일 단방향 연결이 돼버렸다..
@@ -52,6 +52,6 @@ public class CommentEntity extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     //이렇게하자!(영속성 전이)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "userId")
     private UserEntity userEntity;
 }

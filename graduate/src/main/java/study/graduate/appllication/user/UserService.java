@@ -23,12 +23,12 @@ public class UserService {
     public Long join(UserEntity userEntity){
         validateDuplicateLoginId(userEntity);
         userRepository.save(userEntity);
-        return userEntity.getUser_id();
+        return userEntity.getUserId();
     }
 
     //그리고 orElseThrow 대신 ifPresent써도 되나? -> if를 써야 맞다.
     private void validateDuplicateLoginId(UserEntity userEntity){
-        userRepository.findByLogin_id(userEntity.getLogin_id()).ifPresent(a
+        userRepository.findByLoginId(userEntity.getLoginId()).ifPresent(a
                 -> {throw new IllegalStateException("이미 존재하는 아이디입니다.");
         });
     }
@@ -45,11 +45,7 @@ public class UserService {
         return userRepository.findById(user_id);
     }
 
-    public void deleteUser(Long user_id){
-        userRepository.deleteById(user_id);
-    }
-
-    public void updateUser(UserEntity userEntity){
-        userRepository.
+    public void deleteUser(Long userId){
+        userRepository.deleteById(userId);
     }
 }
