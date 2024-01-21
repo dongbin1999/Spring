@@ -36,6 +36,7 @@ public class PostService {
         return postRepository.findById(postId).orElseThrow();
     }
 
+    @Transactional
     public void deletePost(Long postId){
         postRepository.deleteById(postId);
     }

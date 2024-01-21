@@ -3,6 +3,7 @@ package study.graduate.appllication.user;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 import study.graduate.domain.user.UserEntity;
 import study.graduate.domain.user.UserRepository;
 import study.graduate.dto.user.UserJoinRequestDTO;
@@ -28,7 +29,7 @@ public class UserService {
         return userEntity.getUserId();
     }
 
-    //그리고 orElseThrow 대신 ifPresent써도 되나? -> if를 써야 맞다.
+    //나중에 userName, userEmail 중복검사도 같이하자.
     private void validateDuplicateLoginId(UserEntity userEntity){
         userRepository.findByLoginId(userEntity.getLoginId()).ifPresent(a
                 -> {throw new IllegalStateException("이미 존재하는 아이디입니다.");
@@ -37,21 +38,25 @@ public class UserService {
 
     @Transactional
     //userUpdateRequestDTO도 update하는 필드마다 따로만드는게 나은가..?
+    //파라미터는 String UserName만 주면 안되겠지? userId, password등도 알아야하니까?
     public void updateUserName(UserUpdateRequestDTO userUpdateRequestDTO){
-        UserEntity userEntity = userRepository.findById(userUpdateRequestDTO.getUserId()).orElseThrow();
+        UserEntity userEntity = userRepository.findById(userUpdateRequestDTO.getUserId()).orElseThrow(
+                () -> new IllegalStateException("존재하지 않는 유저입니다."));
         //update할때는 DTO의 password랑 repository에서 찾은 entity의 password가 같은지 교차검증하는 코드도 필요할거같아...
         userEntity.updateUserName(userUpdateRequestDTO.getUserName());
     }
 
-    @Transactional
-    public void updateUserEmail(UserUpdateRequestDTO userUpdateRequestDTO){
-        UserEntity userEntity = userRepository.findById(userUpdateRequestDTO.getUserId()).orElseThrow();
-        userEntity.updateUserEmail(userUpdateRequestDTO.getUserEmail());
-    }
+//    @Transactional
+//    public void updateUserEmail(UserUpdateRequestDTO userUpdateRequestDTO){
+//        UserEntity userEntity = userRepository.findById(userUpdateRequestDTO.getUserId()).orElseThrow(
+//                () -> new IllegalStateException("존재하지 않는 유저입니다."));
+//        userEntity.updateUserEmail(userUpdateRequestDTO.getUserEmail());
+//    }
 
     @Transactional
     public void updatePassword(UserUpdateRequestDTO userUpdateRequestDTO){
-        UserEntity userEntity = userRepository.findById(userUpdateRequestDTO.getUserId()).orElseThrow();
+        UserEntity userEntity = userRepository.findById(userUpdateRequestDTO.getUserId()).orElseThrow(
+                () -> new IllegalStateException("존재하지 않는 유저입니다."));
         userEntity.updatePassword(userUpdateRequestDTO.getPassword());
     }
 
@@ -67,6 +72,8 @@ public class UserService {
         return userRepository.findById(userId).orElseThrow();
     }
 
+    //정신차리자.. Transactional 안붙이고 뭐하냐...
+    @Transactional
     public void deleteUser(Long userId){
         userRepository.deleteById(userId);
     }

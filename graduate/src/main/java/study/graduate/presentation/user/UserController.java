@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import study.graduate.appllication.user.UserService;
 import study.graduate.dto.user.UserJoinRequestDTO;
+import study.graduate.dto.user.UserUpdateRequestDTO;
 
 @RestController
 //simple logging facade for java.
@@ -30,14 +31,19 @@ public class UserController {
     }
 
     @PostMapping("")
-    public ResponseEntity<?> joinUser(UserJoinRequestDTO userJoinRequestDTO){
+    //@RequestBody를 붙여줘야 Json 데이터를 잘 넘겨받을수있다. 직렬화/역직렬화 공부하기.
+    public ResponseEntity<?> joinUser(@RequestBody UserJoinRequestDTO userJoinRequestDTO){
         userService.join(userJoinRequestDTO);
         return ResponseEntity.ok().build();
     }
 
-    @PatchMapping("/{userId}")
-    public ResponseEntity<?> updateUser(UserJoinRequestDTO userJoinRequestDTO){
-        userService.join(userJoinRequestDTO);
+    //나중에 백준사이트처럼 만들어보자.
+    @PatchMapping("/modify")
+    public ResponseEntity<?> updateUser(@RequestBody UserUpdateRequestDTO userUpdateRequestDTO){
+        //일단, 이메일은 변경 불가인걸로 해보자.
+        //userService.updateUserEmail(userUpdateRequestDTO);
+        userService.updateUserName(userUpdateRequestDTO);
+        userService.updatePassword(userUpdateRequestDTO);
         return ResponseEntity.ok().build();
     }
 }
