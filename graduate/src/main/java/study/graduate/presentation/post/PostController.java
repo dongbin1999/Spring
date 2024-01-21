@@ -6,9 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import study.graduate.appllication.post.PostService;
-import study.graduate.appllication.user.UserService;
-import study.graduate.domain.post.PostEntity;
 import study.graduate.dto.post.PostAddRequestDTO;
+import study.graduate.dto.post.PostUpdateRequestDTO;
 
 @RestController
 @Slf4j
@@ -17,8 +16,6 @@ import study.graduate.dto.post.PostAddRequestDTO;
 public class PostController {
 
     private final PostService postService;
-    //PostController가 userService를 알고있는건 단일성원칙을 크게 위반한건 아니다?
-    private final UserService userService;
 
     @GetMapping("/{postId}")
     public ResponseEntity<?> findPost(@PathVariable Long postId){
@@ -32,15 +29,14 @@ public class PostController {
     }
 
     @PostMapping("")
-    //나중에 userId를 front에서 받아오는 annotation으로 수정해야함.
-    public ResponseEntity<HttpStatus> addPost(PostAddRequestDTO postAddRequestDTO, Long userId){
-        postAddRequestDTO.setUserEntity(userService.findById(userId));
+    public ResponseEntity<HttpStatus> addPost(PostAddRequestDTO postAddRequestDTO){
         postService.addPost(postAddRequestDTO);
         return ResponseEntity.ok().build();
     }
 
-//    @PatchMapping("/postId")
-//    public ResponseEntity<HttpStatus> updatePost(PostAddRequestDTO postAddRequestDTO){
-//        postService.updatePostEntity();
-//    }
+    @PatchMapping("")
+    public ResponseEntity<HttpStatus> updatePost(PostUpdateRequestDTO postUpdateRequestDTO){
+        postService.updatePost(postUpdateRequestDTO);
+        return ResponseEntity.ok().build();
+    }
 }

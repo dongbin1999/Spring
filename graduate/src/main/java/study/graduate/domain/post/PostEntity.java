@@ -9,6 +9,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import study.graduate.domain.BaseEntity;
 import study.graduate.domain.user.UserEntity;
 import study.graduate.domain.comment.CommentEntity;
+import study.graduate.dto.post.PostAddRequestDTO;
 
 import java.util.List;
 
@@ -48,5 +49,5 @@ public class PostEntity extends BaseEntity {
     private UserEntity userEntity;
 
     @OneToMany(mappedBy = "postEntity", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<CommentEntity> users;
+    private List<CommentEntity> comments;
 }

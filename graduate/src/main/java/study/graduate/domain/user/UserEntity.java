@@ -18,17 +18,17 @@ public class UserEntity {
     @Id
     //이게 ID 자동으로 부여하는거다.
     @GeneratedValue
-    @Column(name = "userId")
+    @Column(name = "user_id")
     private Long userId;
 
-    @Column(name = "userName", nullable = false)
+    @Column(name = "user_name", nullable = false)
     private String userName;
 
     //nullable 써야되는데 굳이 안쓸이유가 없다. null값 들어가도되면 말고. 근데? db에서 null값을 허용하는게 안좋다.
-    @Column(name = "userEmail", nullable = false)
+    @Column(name = "user_email", nullable = false)
     private String userEmail;
 
-    @Column(name = "loginId", nullable = false)
+    @Column(name = "login_id", nullable = false)
     private String loginId;
 
     @Column(name = "password", nullable = false)
@@ -44,8 +44,20 @@ public class UserEntity {
         this.password=password;
     }
 
+    public void updateUserName(String userName){
+        this.userName=userName;
+    }
+
+    public void updateUserEmail(String userEmail){
+        this.userEmail=userEmail;
+    }
+
+    public void updatePassword(String password){
+        this.password=password;
+    }
+
     //영속성 전이는 OneToMany에서밖에 안되는데, 일대다 단방향은 별로 안좋아.. 양방향이면 ok. 수동으로 전이하는 방법도 생각해보자.
     @OneToMany(mappedBy = "userEntity", cascade = CascadeType.PERSIST, orphanRemoval = true)
     //new ArrayList 할 이유가..??
-    private List<PostEntity> users;
+    private List<PostEntity> posts;
 }

@@ -10,6 +10,9 @@ import study.graduate.domain.post.PostRepository;
 import study.graduate.domain.user.UserEntity;
 import study.graduate.domain.user.UserRepository;
 import study.graduate.dto.comment.CommentAddRequestDTO;
+import study.graduate.dto.comment.CommentUpdateRequestDTO;
+
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -17,22 +20,30 @@ import study.graduate.dto.comment.CommentAddRequestDTO;
 public class CommentService {
 
     private final CommentRepository commentRepository;
+    private final PostRepository postRepository;
+    private final UserRepository userRepository;
 
     @Transactional
     public Long addComment(CommentAddRequestDTO commentAddRequestDTO){
-        CommentEntity commentEntity = commentAddRequestDTO.toCommentEntity();
+        PostEntity postEntity = postRepository.findById(commentAddRequestDTO.getPostId()).orElseThrow();
+        UserEntity userEntity = userRepository.findById(commentAddRequestDTO.getUserId()).orElseThrow();
+        CommentEntity commentEntity = commentAddRequestDTO.toCommentEntity(userEntity,postEntity);
         commentRepository.save(commentEntity);
         return commentEntity.getCommentId();
     }
 
     @Transactional
-    public void updateCommentEntity(Long commentId, String commentContent){
-        CommentEntity commentEntity = commentRepository.findById(commentId).orElseThrow();
-        commentEntity.updateComment(commentContent);
+    public void updateComment(CommentUpdateRequestDTO commentUpdateRequestDTO){
+        CommentEntity commentEntity = commentRepository.findById(commentUpdateRequestDTO.getCommentId()).orElseThrow();
+        commentEntity.updateComment(commentUpdateRequestDTO.getCommentContent());
         commentRepository.save(commentEntity);
     }
 
     public void deleteComment(Long commentId){
         commentRepository.deleteById(commentId);
+    }
+
+    public List<CommentEntity> findComments(){
+        return commentRepository.findAll();
     }
 }

@@ -6,10 +6,9 @@ import org.springframework.transaction.annotation.Transactional;
 import study.graduate.domain.user.UserEntity;
 import study.graduate.domain.user.UserRepository;
 import study.graduate.dto.user.UserJoinRequestDTO;
-import study.graduate.dto.user.UserJoinResponseDTO;
+import study.graduate.dto.user.UserUpdateRequestDTO;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 //메소드 앞뒤에 db랑 커넥션/연결해제코드 추가해주는 annotation. AOP 기술.
@@ -36,10 +35,25 @@ public class UserService {
         });
     }
 
-//    @Transactional
-//    public void updateUser(User){
-//
-//    }
+    @Transactional
+    //userUpdateRequestDTO도 update하는 필드마다 따로만드는게 나은가..?
+    public void updateUserName(UserUpdateRequestDTO userUpdateRequestDTO){
+        UserEntity userEntity = userRepository.findById(userUpdateRequestDTO.getUserId()).orElseThrow();
+        //update할때는 DTO의 password랑 repository에서 찾은 entity의 password가 같은지 교차검증하는 코드도 필요할거같아...
+        userEntity.updateUserName(userUpdateRequestDTO.getUserName());
+    }
+
+    @Transactional
+    public void updateUserEmail(UserUpdateRequestDTO userUpdateRequestDTO){
+        UserEntity userEntity = userRepository.findById(userUpdateRequestDTO.getUserId()).orElseThrow();
+        userEntity.updateUserEmail(userUpdateRequestDTO.getUserEmail());
+    }
+
+    @Transactional
+    public void updatePassword(UserUpdateRequestDTO userUpdateRequestDTO){
+        UserEntity userEntity = userRepository.findById(userUpdateRequestDTO.getUserId()).orElseThrow();
+        userEntity.updatePassword(userUpdateRequestDTO.getPassword());
+    }
 
     /**
      * presentation layer와 domain layer 간의 의존성을 끊기 위해 필요하다.

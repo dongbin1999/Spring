@@ -1,19 +1,18 @@
 package study.graduate.dto.comment;
 
-import lombok.Setter;
+import lombok.Getter;
 import study.graduate.domain.comment.CommentEntity;
 import study.graduate.domain.post.PostEntity;
 import study.graduate.domain.user.UserEntity;
 
+@Getter
 public class CommentAddRequestDTO {
 
+    private Long userId;
+    private Long postId;
     private String commentContent;
-    @Setter
-    private PostEntity postEntity;
-    @Setter
-    private UserEntity userEntity;
 
-    public CommentEntity toCommentEntity(){
+    public CommentEntity toCommentEntity(UserEntity userEntity,PostEntity postEntity){
         return CommentEntity.builder()
                 .commentContent(commentContent)
                 .postEntity(postEntity)

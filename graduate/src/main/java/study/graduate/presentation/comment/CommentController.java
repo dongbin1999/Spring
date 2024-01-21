@@ -17,14 +17,10 @@ import study.graduate.dto.comment.CommentAddRequestDTO;
 @RequestMapping("/comments")
 public class CommentController {
 
-    private final PostService postService;
-    private final UserService userService;
     private final CommentService commentService;
 
     @PostMapping("")
-    public ResponseEntity<?> addComment(CommentAddRequestDTO commentAddRequestDTO, Long postId, Long userId){
-        commentAddRequestDTO.setUserEntity(userService.findById(userId));
-        commentAddRequestDTO.setPostEntity(postService.findById(postId));
+    public ResponseEntity<?> addComment(CommentAddRequestDTO commentAddRequestDTO){
         commentService.addComment(commentAddRequestDTO);
         return ResponseEntity.ok().build();
     }

@@ -4,8 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import study.graduate.domain.user.UserEntity;
 
-//기본 생성자.
-@NoArgsConstructor
+//기본 생성자. 아무 생성자도 안만들면 기본생성자는 자동으로 만들어진다.
+//@NoArgsConstructor
 @Getter
 public class UserJoinRequestDTO {
 
