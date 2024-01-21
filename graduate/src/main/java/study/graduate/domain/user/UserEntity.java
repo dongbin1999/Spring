@@ -44,16 +44,6 @@ public class UserEntity {
         this.password=password;
     }
 
-    //이거는 나중에 dto만들면 거기로 빼야할듯.
-    public static UserEntity toUserEntity(String userName, String userEmail, String loginId, String password){
-        return UserEntity.builder()
-                .userName(userName)
-                .userEmail(userEmail)
-                .loginId(loginId)
-                .password(password)
-                .build();
-    }
-
     //영속성 전이는 OneToMany에서밖에 안되는데, 일대다 단방향은 별로 안좋아.. 양방향이면 ok. 수동으로 전이하는 방법도 생각해보자.
     @OneToMany(mappedBy = "userEntity", cascade = CascadeType.PERSIST, orphanRemoval = true)
     //new ArrayList 할 이유가..??

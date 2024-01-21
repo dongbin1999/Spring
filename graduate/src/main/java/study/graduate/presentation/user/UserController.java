@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import study.graduate.appllication.user.UserService;
-import study.graduate.domain.user.UserEntity;
+import study.graduate.dto.user.UserJoinRequestDTO;
 
 @RestController
 //simple logging facade for java.
@@ -30,14 +30,14 @@ public class UserController {
     }
 
     @PostMapping("")
-    public ResponseEntity<?> joinUser(UserEntity userEntity){
-        userService.join(userEntity);
+    public ResponseEntity<?> joinUser(UserJoinRequestDTO userJoinRequestDTO){
+        userService.join(userJoinRequestDTO);
         return ResponseEntity.ok().build();
     }
 
     @PatchMapping("/{userId}")
-    public ResponseEntity<?> updateUser(UserEntity userEntity){
-        userService.join(userEntity);
+    public ResponseEntity<?> updateUser(UserJoinRequestDTO userJoinRequestDTO){
+        userService.join(userJoinRequestDTO);
         return ResponseEntity.ok().build();
     }
 }

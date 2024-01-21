@@ -36,7 +36,8 @@ public class CommentEntity extends BaseEntity {
         return CommentEntity.builder()
                 .commentContent(commentContent)
                 .postEntity(postEntity)
-                .userEntity(userEntity).build();
+                .userEntity(userEntity)
+                .build();
     }
 
     public void updateComment(String comment_content){

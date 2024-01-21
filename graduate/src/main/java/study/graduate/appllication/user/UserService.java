@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.graduate.domain.user.UserEntity;
 import study.graduate.domain.user.UserRepository;
+import study.graduate.dto.user.UserJoinRequestDTO;
+import study.graduate.dto.user.UserJoinResponseDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,7 +22,8 @@ public class UserService {
 
     //여기다 또 달아주면 default인 false가 된다... join은 update해야하니까 false가 맞고.
     @Transactional
-    public Long join(UserEntity userEntity){
+    public Long join(UserJoinRequestDTO userJoinRequestDTO){
+        UserEntity userEntity = userJoinRequestDTO.toUserEntity();
         validateDuplicateLoginId(userEntity);
         userRepository.save(userEntity);
         return userEntity.getUserId();
@@ -33,6 +36,11 @@ public class UserService {
         });
     }
 
+//    @Transactional
+//    public void updateUser(User){
+//
+//    }
+
     /**
      * presentation layer와 domain layer 간의 의존성을 끊기 위해 필요하다.
      * 이게없으면 controller가 userRepository를 알아야되니까...
@@ -41,8 +49,8 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public Optional<UserEntity> findById(Long user_id){
-        return userRepository.findById(user_id);
+    public UserEntity findById(Long userId){
+        return userRepository.findById(userId).orElseThrow();
     }
 
     public void deleteUser(Long userId){

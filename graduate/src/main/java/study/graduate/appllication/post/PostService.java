@@ -7,6 +7,7 @@ import study.graduate.domain.post.PostEntity;
 import study.graduate.domain.post.PostRepository;
 import study.graduate.domain.user.UserEntity;
 import study.graduate.domain.user.UserRepository;
+import study.graduate.dto.post.PostAddRequestDTO;
 
 @Service
 @Transactional(readOnly = true)
@@ -14,13 +15,12 @@ import study.graduate.domain.user.UserRepository;
 public class PostService {
 
     private final PostRepository postRepository;
-    private final UserRepository userRepository;
 
     @Transactional
-    public Long addPost(String title, String content, Long userId){
-        UserEntity userEntity = userRepository.findById(userId).orElseThrow();
+    public Long addPost(PostAddRequestDTO postAddRequestDTO){
+        UserEntity userEntity = postAddRequestDTO.getUserEntity();
 
-        PostEntity postEntity = PostEntity.toPostEntity(title, content, userEntity);
+        PostEntity postEntity = postAddRequestDTO.toPostEntity();
         postRepository.save(postEntity);
         return postEntity.getPostId();
     }
@@ -30,5 +30,13 @@ public class PostService {
         PostEntity postEntity = postRepository.findById(postId).orElseThrow();
         postEntity.updatePost(postTitle,postContent);
         postRepository.save(postEntity);
+    }
+
+    public PostEntity findById(Long postId){
+        return postRepository.findById(postId).orElseThrow();
+    }
+
+    public void deletePost(Long postId){
+        postRepository.deleteById(postId);
     }
 }

@@ -37,14 +37,6 @@ public class PostEntity extends BaseEntity {
         this.userEntity=userEntity;
     }
 
-    //정적 메서드. 작명에 신경쓰자.
-    public static PostEntity toPostEntity(String postTitle, String postContent, UserEntity userEntity){
-        return PostEntity.builder()
-                .postTitle(postTitle)
-                .postContent(postContent)
-                .userEntity(userEntity).build();
-    }
-
     //이게 setter야.. @Setter를 써도 되긴하는데, 의미파악을 위해서 직접 만들었다. 이것도 두개로 분리하는게 깔끔할지도?
     public void updatePost(String postTitle, String postContent){
         this.postTitle=postTitle;
