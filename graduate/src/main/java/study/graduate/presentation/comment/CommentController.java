@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import study.graduate.appllication.comment.CommentService;
-import study.graduate.appllication.post.PostService;
-import study.graduate.appllication.user.UserService;
 import study.graduate.dto.comment.CommentAddRequestDTO;
 
 @RestController

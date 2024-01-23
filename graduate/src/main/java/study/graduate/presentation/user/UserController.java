@@ -6,7 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import study.graduate.appllication.user.UserService;
+import study.graduate.domain.user.UserEntity;
 import study.graduate.dto.user.UserJoinRequestDTO;
+import study.graduate.dto.user.UserJoinResponseDTO;
 import study.graduate.dto.user.UserUpdateRequestDTO;
 
 @RestController
@@ -21,7 +23,7 @@ public class UserController {
     @GetMapping("/{userId}")
     public ResponseEntity<?> findUser(@PathVariable Long userId){
         //http body에다가 userService메소드의 반환값을 json형태로 넘겨준다.
-        return ResponseEntity.ok().body(userService.findById(userId));
+        return ResponseEntity.ok().body(userService.readUser(userId));
     }
 
     @DeleteMapping("/{userId}")
@@ -40,10 +42,7 @@ public class UserController {
     //나중에 백준사이트처럼 만들어보자.
     @PatchMapping("/modify")
     public ResponseEntity<?> updateUser(@RequestBody UserUpdateRequestDTO userUpdateRequestDTO){
-        //일단, 이메일은 변경 불가인걸로 해보자.
-        //userService.updateUserEmail(userUpdateRequestDTO);
-        userService.updateUserName(userUpdateRequestDTO);
-        userService.updatePassword(userUpdateRequestDTO);
+        userService.updateUser(userUpdateRequestDTO);
         return ResponseEntity.ok().build();
     }
 }

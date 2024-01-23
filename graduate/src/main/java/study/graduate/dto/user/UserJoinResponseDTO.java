@@ -3,13 +3,11 @@ package study.graduate.dto.user;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import study.graduate.domain.user.UserEntity;
 
 @Builder
 @Getter
 @Setter
-@ToString
 public class UserJoinResponseDTO {
 
     private Long userId;

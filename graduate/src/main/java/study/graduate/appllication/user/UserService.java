@@ -3,10 +3,10 @@ package study.graduate.appllication.user;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
 import study.graduate.domain.user.UserEntity;
 import study.graduate.domain.user.UserRepository;
 import study.graduate.dto.user.UserJoinRequestDTO;
+import study.graduate.dto.user.UserJoinResponseDTO;
 import study.graduate.dto.user.UserUpdateRequestDTO;
 
 import java.util.List;
@@ -37,27 +37,13 @@ public class UserService {
     }
 
     @Transactional
-    //userUpdateRequestDTO도 update하는 필드마다 따로만드는게 나은가..?
+    //userUpdateRequestDTO도 update하는 필드마다 따로만드는게 나은가..? -> ㄴㄴ 아니다 한번에하자.
     //파라미터는 String UserName만 주면 안되겠지? userId, password등도 알아야하니까?
-    public void updateUserName(UserUpdateRequestDTO userUpdateRequestDTO){
+    public void updateUser(UserUpdateRequestDTO userUpdateRequestDTO){
         UserEntity userEntity = userRepository.findById(userUpdateRequestDTO.getUserId()).orElseThrow(
                 () -> new IllegalStateException("존재하지 않는 유저입니다."));
         //update할때는 DTO의 password랑 repository에서 찾은 entity의 password가 같은지 교차검증하는 코드도 필요할거같아...
-        userEntity.updateUserName(userUpdateRequestDTO.getUserName());
-    }
-
-//    @Transactional
-//    public void updateUserEmail(UserUpdateRequestDTO userUpdateRequestDTO){
-//        UserEntity userEntity = userRepository.findById(userUpdateRequestDTO.getUserId()).orElseThrow(
-//                () -> new IllegalStateException("존재하지 않는 유저입니다."));
-//        userEntity.updateUserEmail(userUpdateRequestDTO.getUserEmail());
-//    }
-
-    @Transactional
-    public void updatePassword(UserUpdateRequestDTO userUpdateRequestDTO){
-        UserEntity userEntity = userRepository.findById(userUpdateRequestDTO.getUserId()).orElseThrow(
-                () -> new IllegalStateException("존재하지 않는 유저입니다."));
-        userEntity.updatePassword(userUpdateRequestDTO.getPassword());
+        userEntity.updateUser(userUpdateRequestDTO);
     }
 
     /**
@@ -68,8 +54,14 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    //얘를 dto를 반환하게해라....
     public UserEntity findById(Long userId){
         return userRepository.findById(userId).orElseThrow();
+    }
+
+    public UserJoinResponseDTO readUser(Long userId){
+        UserEntity userEntity = findById(userId);
+        return UserJoinResponseDTO.toUserResponseDTO(userEntity);
     }
 
     //정신차리자.. Transactional 안붙이고 뭐하냐...

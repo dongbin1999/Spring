@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import study.graduate.domain.post.PostEntity;
+import study.graduate.dto.user.UserUpdateRequestDTO;
 
 import java.util.List;
 
@@ -44,16 +45,9 @@ public class UserEntity {
         this.password=password;
     }
 
-    public void updateUserName(String userName){
-        this.userName=userName;
-    }
-
-    public void updateUserEmail(String userEmail){
-        this.userEmail=userEmail;
-    }
-
-    public void updatePassword(String password){
-        this.password=password;
+    public void updateUser(UserUpdateRequestDTO userUpdateRequestDTO){
+        this.userName=userUpdateRequestDTO.getUserName();
+        this.password=userUpdateRequestDTO.getPassword();
     }
 
     //영속성 전이는 OneToMany에서밖에 안되는데, 일대다 단방향은 별로 안좋아.. 양방향이면 ok. 수동으로 전이하는 방법도 생각해보자.

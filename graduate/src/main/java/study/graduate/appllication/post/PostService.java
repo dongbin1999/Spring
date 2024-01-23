@@ -16,6 +16,7 @@ import study.graduate.dto.post.PostUpdateRequestDTO;
 public class PostService {
 
     private final PostRepository postRepository;
+    //이거 지워보자.
     private final UserRepository userRepository;
 
     @Transactional
