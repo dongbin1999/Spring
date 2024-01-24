@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import study.graduate.appllication.post.PostService;
-import study.graduate.appllication.user.UserService;
 import study.graduate.dto.post.PostAddRequestDTO;
 import study.graduate.dto.post.PostUpdateRequestDTO;
 
@@ -17,12 +16,11 @@ import study.graduate.dto.post.PostUpdateRequestDTO;
 public class PostController {
 
     private final PostService postService;
-    //이걸 써서, postService의 userRepository를 지워보자.
-    private final UserService userService;
+    //controller에는 비즈니스로직도, Entity도 들어가면 안된다!
 
     @GetMapping("/{postId}")
     public ResponseEntity<?> findPost(@PathVariable Long postId){
-        return ResponseEntity.ok().body(postService.findById(postId));
+        return ResponseEntity.ok().body(postService.readPost(postId));
     }
 
     @DeleteMapping("/{postId}")

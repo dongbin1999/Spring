@@ -8,6 +8,7 @@ import study.graduate.domain.post.PostRepository;
 import study.graduate.domain.user.UserEntity;
 import study.graduate.domain.user.UserRepository;
 import study.graduate.dto.post.PostAddRequestDTO;
+import study.graduate.dto.post.PostAddResponseDTO;
 import study.graduate.dto.post.PostUpdateRequestDTO;
 
 @Service
@@ -16,7 +17,6 @@ import study.graduate.dto.post.PostUpdateRequestDTO;
 public class PostService {
 
     private final PostRepository postRepository;
-    //이거 지워보자.
     private final UserRepository userRepository;
 
     @Transactional
@@ -35,6 +35,11 @@ public class PostService {
 
     public PostEntity findById(Long postId){
         return postRepository.findById(postId).orElseThrow();
+    }
+
+    public PostAddResponseDTO readPost(Long postId){
+        PostEntity postEntity = postRepository.findById(postId).orElseThrow();
+        return PostAddResponseDTO.toPostAddResponseDTO(postEntity);
     }
 
     @Transactional

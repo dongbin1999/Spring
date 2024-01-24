@@ -6,9 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import study.graduate.appllication.user.UserService;
-import study.graduate.domain.user.UserEntity;
 import study.graduate.dto.user.UserJoinRequestDTO;
-import study.graduate.dto.user.UserJoinResponseDTO;
 import study.graduate.dto.user.UserUpdateRequestDTO;
 
 @RestController

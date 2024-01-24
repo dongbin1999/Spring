@@ -54,7 +54,6 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    //얘를 dto를 반환하게해라....
     public UserEntity findById(Long userId){
         return userRepository.findById(userId).orElseThrow();
     }
