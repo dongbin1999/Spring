@@ -3,10 +3,8 @@ package study.graduate.appllication.user;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import study.graduate.domain.post.PostEntity;
 import study.graduate.domain.user.UserEntity;
 import study.graduate.domain.user.UserRepository;
-import study.graduate.dto.user.UserFindPostResponseDTO;
 import study.graduate.dto.user.UserJoinRequestDTO;
 import study.graduate.dto.user.UserJoinResponseDTO;
 import study.graduate.dto.user.UserUpdateRequestDTO;
@@ -63,12 +61,6 @@ public class UserService {
     public UserJoinResponseDTO readUser(Long userId){
         UserEntity userEntity = findById(userId);
         return UserJoinResponseDTO.toUserResponseDTO(userEntity);
-    }
-
-    public UserFindPostResponseDTO readPosts(Long userId){
-        UserEntity userEntity = findById(userId);
-        List<PostEntity> posts = userEntity.getPosts();
-        return UserFindPostResponseDTO.toUserFindPostResponseDTO(posts);
     }
 
     //정신차리자.. Transactional 안붙이고 뭐하냐...

@@ -23,6 +23,11 @@ public class PostController {
         return ResponseEntity.ok().body(postService.readPost(postId));
     }
 
+    @GetMapping("/user/{loginId}")
+    public ResponseEntity<?> findPostsByLoginId(@PathVariable String loginId){
+        return ResponseEntity.ok().body(postService.readPosts(loginId));
+    }
+
     @DeleteMapping("/{postId}")
     public ResponseEntity<HttpStatus> deletePost(@PathVariable Long postId){
         postService.deletePost(postId);

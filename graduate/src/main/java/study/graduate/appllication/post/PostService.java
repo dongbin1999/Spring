@@ -9,7 +9,11 @@ import study.graduate.domain.user.UserEntity;
 import study.graduate.domain.user.UserRepository;
 import study.graduate.dto.post.PostAddRequestDTO;
 import study.graduate.dto.post.PostAddResponseDTO;
+import study.graduate.dto.post.PostFindResponseDTO;
 import study.graduate.dto.post.PostUpdateRequestDTO;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -31,6 +35,23 @@ public class PostService {
     public void updatePost(PostUpdateRequestDTO postUpdateRequestDTO){
         PostEntity postEntity = postRepository.findById(postUpdateRequestDTO.getPostId()).orElseThrow();
         postEntity.updatePost(postUpdateRequestDTO.getPostTitle(), postUpdateRequestDTO.getPostContent());
+    }
+
+
+    //UserEntity를 참조하긴 하지만, 결과적으로 "post"를 읽는 것이니, PostService와 PostController에서 관리해주는게 맞다.
+    public List<PostFindResponseDTO> readPosts(String loginId){
+        UserEntity userEntity = userRepository.findByLoginId(loginId).orElseThrow();
+        List<PostFindResponseDTO> posts=new ArrayList<>();
+
+        for(PostEntity post:userEntity.getPosts()){
+            posts.add(PostFindResponseDTO.topostFindResponseDTO(post));
+        }
+
+        //postId 내림차순으로 정렬.
+        posts.sort((o1,o2) -> (int)(o2.getPostId()-o1.getPostId()));
+        //포스트 제목 사전순으로 정렬.
+        posts.sort((o1,o2)->o1.getPostTitle().compareToIgnoreCase(o2.getPostTitle()));
+        return posts;
     }
 
     public PostEntity findById(Long postId){
