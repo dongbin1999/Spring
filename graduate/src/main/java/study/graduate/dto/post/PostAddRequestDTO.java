@@ -4,7 +4,6 @@ import lombok.Getter;
 import study.graduate.domain.post.PostEntity;
 import study.graduate.domain.user.UserEntity;
 
-
 @Getter
 public class PostAddRequestDTO {
 

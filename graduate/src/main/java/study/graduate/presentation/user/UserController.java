@@ -24,6 +24,11 @@ public class UserController {
         return ResponseEntity.ok().body(userService.readUser(userId));
     }
 
+    @GetMapping("/{userId}/posts")
+    public ResponseEntity<?> findPosts(@PathVariable Long userId){
+        return ResponseEntity.ok().body(userService.readPosts(userId));
+    }
+
     @DeleteMapping("/{userId}")
     public ResponseEntity<HttpStatus> deleteUser(@PathVariable Long userId){
         userService.deleteUser(userId);
