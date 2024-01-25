@@ -27,6 +27,9 @@ public class UserFindPostResponseDTO {
             postFindResponseDTOs.add(PostFindResponseDTO.topostFindResponseDTO(post));
         }
 
+        //postFindResponseDTOs.sort((o1,o2) -> (int)(o2.getPostId()-o1.getPostId()));
+        postFindResponseDTOs.sort((o1,o2)->o1.getPostTitle().compareToIgnoreCase(o2.getPostTitle()));
+
         return UserFindPostResponseDTO.builder()
                 .posts(postFindResponseDTOs)
                 .build();
